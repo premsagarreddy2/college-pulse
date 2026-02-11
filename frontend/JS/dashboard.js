@@ -20,10 +20,9 @@ async function fetchEvents() {
         const container = document.getElementById("eventsContainer");
         container.innerHTML = "";
 
+        const events = data.events;
 
-        const events = data.data || data;
-
-        if (!Array.isArray(events)) {
+        if (!events || events.length === 0) {
             container.innerHTML = "<p>No events found.</p>";
             return;
         }

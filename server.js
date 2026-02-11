@@ -12,7 +12,8 @@ const app = express();
 
 // Middleware
 app.use(cors({
-    origin: "*"
+    origin: ["https://college-pulse.com"]
+
 }));
 app.use(express.json());
 app.use("/api/auth", require("./routes/authRoutes"));

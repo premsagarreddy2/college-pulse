@@ -6,7 +6,7 @@ const connectDB = require("./config/db");
 dotenv.config();
 
 // Connect Database
-connectDB();
+// connectDB();
 
 const app = express();
 
@@ -45,9 +45,27 @@ app.get("/", (req, res) => {
     res.send("Campus Pulse API Running 🚀");
 });
 
-// Port
-const PORT = process.env.PORT || 5000;
+// // Port
+// const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-});
+// app.listen(PORT, () => {
+//     console.log(`Server running on port ${PORT}`);
+// });
+const startServer = async () => {
+    try {
+        await connectDB();
+
+        const PORT = process.env.PORT || 5000;
+
+        app.listen(PORT, () => {
+            console.log(`Server running on port ${PORT}`);
+        });
+
+    } catch (error) {
+        console.error("Database connection failed:", error);
+        process.exit(1);
+    }
+};
+
+startServer();
+

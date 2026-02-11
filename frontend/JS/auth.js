@@ -9,12 +9,14 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
     const errorMessage = document.getElementById("errorMessage");
 
     try {
+        const role = document.getElementById("role").value;
+
         const response = await fetch(`${API_URL}/api/auth/login`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ email, password })
+            body: JSON.stringify({ email, password, role })
         });
 
         const data = await response.json();
@@ -26,11 +28,14 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
 
         // Save JWT
         localStorage.setItem("token", data.token);
-
+        localStorage.setItem("role", data.role);
         // Redirect to dashboard
         window.location.href = "dashboard.html";
 
     } catch (error) {
         errorMessage.textContent = "Server error. Try again.";
     }
+
+
+
 });

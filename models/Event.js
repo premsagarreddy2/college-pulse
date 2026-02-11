@@ -18,6 +18,9 @@ const eventSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
+        image: {
+            type: String
+        },
         durationHours: {
             type: Number,
             default: 2

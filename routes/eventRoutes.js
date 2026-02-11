@@ -58,5 +58,13 @@ router.delete(
 
 router.get("/:id", getEventById);
 
+const upload = require("../config/upload");
+router.post(
+    "/",
+    protect,
+    authorize("admin"),
+    upload.single("image"),
+    createEvent
+);
 module.exports = router;
 

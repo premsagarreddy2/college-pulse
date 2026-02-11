@@ -3,24 +3,25 @@ const Event = require("../models/Event");
 // Create Event
 exports.createEvent = async (req, res) => {
     try {
-        const { title, description, date, venue } = req.body;
+        const { title, description, date, venue, durationHours } = req.body;
 
         const event = await Event.create({
             title,
             description,
             date,
             venue,
-            createdBy: req.user._id,
+            durationHours,
+            image: req.file ? `/uploads/${req.file.filename}` : null,
+            createdBy: req.user._id
         });
 
-        res.status(201).json({
-            message: "Event created successfully 🎉",
-            event,
-        });
+        res.status(201).json(event);
+
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        res.status(500).json({ message: "Server error" });
     }
 };
+
 // Get All Events
 exports.getEvents = async (req, res) => {
     try {

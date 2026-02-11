@@ -15,11 +15,20 @@ async function fetchEvents() {
         });
 
         const data = await response.json();
+        console.log("API Response:", data);
 
         const container = document.getElementById("eventsContainer");
         container.innerHTML = "";
 
-        data.forEach(event => {
+
+        const events = data.data || data;
+
+        if (!Array.isArray(events)) {
+            container.innerHTML = "<p>No events found.</p>";
+            return;
+        }
+
+        events.forEach(event => {
             const div = document.createElement("div");
             div.className = "bg-gray-800 p-4 rounded";
             div.innerHTML = `
@@ -30,9 +39,10 @@ async function fetchEvents() {
         });
 
     } catch (error) {
-        console.error(error);
+        console.error("Error fetching events:", error);
     }
 }
+
 
 function logout() {
     localStorage.removeItem("token");

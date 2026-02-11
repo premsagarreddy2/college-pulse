@@ -1,4 +1,5 @@
-const API_URL = "https://college-pulse-j5bn.onrender.com/";
+const API_URL = "https://college-pulse-j5bn.onrender.com";
+
 
 document.getElementById("loginForm").addEventListener("submit", async (e) => {
     e.preventDefault();

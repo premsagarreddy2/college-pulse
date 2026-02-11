@@ -28,6 +28,17 @@ async function fetchEvents() {
         }
 
         events.forEach(event => {
+            const formattedDate = new Date(event.date).toLocaleDateString("en-IN", {
+                day: "numeric",
+                month: "long",
+                year: "numeric"
+            });
+
+            const formattedTime = new Date(event.date).toLocaleTimeString("en-IN", {
+                hour: "2-digit",
+                minute: "2-digit"
+            });
+
             const div = document.createElement("div");
             div.className = `
         bg-slate-800 rounded-2xl overflow-hidden
@@ -38,40 +49,50 @@ async function fetchEvents() {
     `;
 
             div.innerHTML = `
-        <!-- Event Image -->
-        <img 
-            src="${event.image || 'https://source.unsplash.com/600x400/?technology,conference'}"
-            alt="Event Image"
-            class="w-full h-48 object-cover"
-        />
+    <img 
+        src="${event.image || 'https://source.unsplash.com/600x400/?technology,conference'}"
+        class="w-full h-48 object-cover"
+    />
 
-        <div class="p-6 space-y-4">
+    <div class="p-6 space-y-4">
 
-            <!-- Title -->
-            <h3 class="text-xl font-bold text-white">
-                ${event.title}
-            </h3>
+        <h3 class="text-xl font-bold">
+            ${event.title}
+        </h3>
 
-            <!-- Description -->
-            <p class="text-slate-400 text-sm leading-relaxed">
-                ${event.description}
-            </p>
+        <p class="text-slate-400 text-sm">
+            ${event.description}
+        </p>
 
-            <!-- Event Details -->
-            <div class="text-sm text-slate-300 space-y-1">
-                <p>📅 <span class="font-medium">${event.date || "Coming Soon"}</span></p>
-                <p>📍 <span class="font-medium">${event.location || "Campus Auditorium"}</span></p>
+        <div class="space-y-2 text-sm text-slate-300">
+
+            <div class="flex items-center gap-2">
+                <span>📅</span>
+                <span>${formattedDate}</span>
             </div>
 
-            <!-- Register Button -->
-            <button
-                class="w-full bg-blue-600 hover:bg-blue-700
-                       py-2 rounded-lg font-medium
-                       transition duration-300">
-                Register Now
-            </button>
+            <div class="flex items-center gap-2">
+                <span>⏰</span>
+                <span>${formattedTime}</span>
+            </div>
+
+            <div class="flex items-center gap-2">
+                <span>📍</span>
+                <span>${event.location || "Campus Auditorium"}</span>
+            </div>
+
         </div>
-    `;
+
+        <button
+            class="w-full bg-blue-600 hover:bg-blue-700
+                   py-2 rounded-lg font-medium
+                   transition duration-300">
+            Register Now
+        </button>
+
+    </div>
+`;
+
 
             container.appendChild(div);
         });

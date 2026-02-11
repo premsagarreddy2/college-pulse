@@ -11,10 +11,7 @@ connectDB();
 const app = express();
 
 // Middleware
-app.use(cors({
-    origin: ["https://college-pulse.com"]
-
-}));
+app.use(cors());
 app.use(express.json());
 app.use("/api/auth", require("./routes/authRoutes"));
 app.use("/api/events", require("./routes/eventRoutes"));

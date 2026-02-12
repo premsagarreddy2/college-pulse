@@ -16,7 +16,7 @@ const { protect, authorize } = require("../middleware/authMiddleware");
 const router = express.Router();
 
 // Create Event
-router.post("/", protect, authorize("admin", "coordinator"), createEvent);
+// router.post("/", protect, authorize("admin", "coordinator"), createEvent);
 
 // Get All Events (any logged-in user)
 router.get("/", protect, getEvents);
@@ -62,9 +62,10 @@ const upload = require("../config/upload");
 router.post(
     "/",
     protect,
-    authorize("admin"),
+    authorize("admin", "coordinator"),
     upload.single("image"),
     createEvent
 );
+
 module.exports = router;
 
